@@ -1,6 +1,7 @@
-import { Box } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+
+import Header from '../components/Header/Header';
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +14,7 @@ const Home: NextPage = () => {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Box>Hello Chakra</Box>
+      <Header />
     </>
   );
 };
