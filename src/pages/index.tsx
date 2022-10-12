@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import Header from '@/components/Header/Header';
 import { useAllPokemon } from '@/services/pokemons';
 import { Grid, Card } from '@/features/PokemonList';
+import { Container, Heading, Text } from '@chakra-ui/react';
 
 const Home: NextPage = () => {
   const {
@@ -25,17 +26,25 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
-      {isLoading ? (
-        <h2>Loading...</h2>
-      ) : isError ? (
-        <h2>Error...</h2>
-      ) : (
-        <Grid>
-          {pokemons?.results.map((pokemon) => (
-            <Card key={pokemon.name} pokemonName={pokemon.name} />
-          ))}
-        </Grid>
-      )}
+      <Container maxW='container.lg' py={{ base: 6, md: 8 }}>
+        <Heading textAlign='center' mb={{ base: 8, md: 4 }}>
+          Pokédex
+        </Heading>
+        <Text textAlign='center' mb={{ base: 8, md: 4 }}>
+          Clique nos Pokémons para ver mais detalhes
+        </Text>
+        {isLoading ? (
+          <h2>Loading...</h2>
+        ) : isError ? (
+          <h2>Error...</h2>
+        ) : (
+          <Grid>
+            {pokemons?.results.map((pokemon) => (
+              <Card key={pokemon.name} pokemonName={pokemon.name} />
+            ))}
+          </Grid>
+        )}
+      </Container>
     </>
   );
 };
