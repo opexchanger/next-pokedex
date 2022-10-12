@@ -1,9 +1,10 @@
-import { Heading } from '@chakra-ui/react';
-import type { NextPage } from 'next';
 import Head from 'next/head';
+import type { NextPage } from 'next';
+import { SimpleGrid } from '@chakra-ui/react';
 
-import Header from '../components/Header/Header';
-import { useAllPokemon } from '../services/pokemons';
+import Card from '@/components/Card/Card';
+import Header from '@/components/Header/Header';
+import { useAllPokemon } from '@/services/pokemons';
 
 const Home: NextPage = () => {
   const {
@@ -30,9 +31,15 @@ const Home: NextPage = () => {
       ) : isError ? (
         <h2>Error...</h2>
       ) : (
-        pokemons?.results.map((pokemon) => (
-          <Heading key={pokemon.name}>{pokemon.name}</Heading>
-        ))
+        <SimpleGrid
+          columns={{ base: 1, md: 2, lg: 3 }}
+          spacing={{ base: '30px', md: '40px', lg: '50px' }}
+          py={{ md: 10 }}
+        >
+          {pokemons?.results.map((pokemon) => (
+            <Card key={pokemon.name} pokemonName={pokemon.name} />
+          ))}
+        </SimpleGrid>
       )}
     </>
   );
