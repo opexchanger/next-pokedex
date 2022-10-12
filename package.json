@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write .",
+    "prepare": "husky install",
+    "pre-commit": "npm run format && npm run lint:fix"
   },
   "dependencies": {
     "next": "12.3.1",
@@ -21,6 +24,7 @@
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "git-commit-msg-linter": "^4.2.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
