@@ -5,7 +5,7 @@ public
 # typescript
 *.tsbuildinfo
 # testing
-/coverage
+/__tests__
 .swc
 # next.js
 /.next/
