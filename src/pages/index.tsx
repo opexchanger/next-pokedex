@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 
 import Header from '@/components/Header/Header';
 import { useAllPokemon } from '@/services/pokemons';
-import { Grid, Card } from '@/features/PokemonList';
+import { Grid, Card, GridLoader } from '@/features/PokemonList';
 import { Container, Heading, Text } from '@chakra-ui/react';
 
 const Home: NextPage = () => {
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
           Clique nos Pokémons para ver mais detalhes
         </Text>
         {isLoading ? (
-          <h2>Loading...</h2>
+          <GridLoader amount={6} />
         ) : isError ? (
           <h2>Error...</h2>
         ) : (

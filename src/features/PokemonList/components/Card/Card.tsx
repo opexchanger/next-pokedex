@@ -1,10 +1,12 @@
 import { Box, Link, Text, Heading, HStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
+
 import { useOnePokemon } from '@/services/pokemons';
 import { formatPokemonName } from '@/utils/index';
-import TypeBadge from './TypeBadge';
 import { formatPokemonNumber } from '../../utils';
+import TypeBadge from './TypeBadge';
+import CardLoader from './CardLoader';
 
 type CardProps = {
   pokemonName: string;
@@ -13,7 +15,7 @@ type CardProps = {
 const Card = ({ pokemonName }: CardProps) => {
   const { data: pokemon, isLoading, isError } = useOnePokemon(pokemonName);
 
-  if (isLoading) return <Box>Carregando o Pokemon</Box>;
+  if (isLoading) return <CardLoader pokemonName={pokemonName} />;
 
   if (isError) return <Box>Erro carregando o Pokemon</Box>;
 
