@@ -6,6 +6,7 @@ public
 *.tsbuildinfo
 # testing
 /coverage
+.swc
 # next.js
 /.next/
 /out/
