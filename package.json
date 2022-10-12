@@ -10,7 +10,7 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "pre-commit": "npm run format && npm run lint:fix"
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "next": "12.3.1",
