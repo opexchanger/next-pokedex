@@ -9,8 +9,8 @@
     "lint": "next lint",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
-    "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "npm run format && npm run lint:fix",
+    "prepare": "husky intall"
   },
   "dependencies": {
     "next": "12.3.1",

@@ -1,0 +1,5 @@
+Lint-staged roda em loop no terminal quando chamado pelo hook do Husky, porém roda normal quando chamado diretamente.
+Mesmo issue também foi reportado no GitHub:
+https://github.com/typicode/husky/issues/968#issuecomment-1238185342
+
+Seguir rodando o husky sem o lint-staged, por enquanto...
