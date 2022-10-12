@@ -1,7 +1,7 @@
 import { Box, Link, Text, Heading, HStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { useOnePokemon } from '../../services/pokemons';
+import { useOnePokemon } from '@/services/pokemons';
 
 type CardProps = {
   pokemonName: string;

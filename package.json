@@ -11,7 +11,8 @@
     "lint": "next lint",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
-    "pre-commit": "npm run format && npm run lint:fix",
+    "pre-commit": "npm run format && npm run lint:fix && npm run test",
+    "pre-commit-dev": "echo ta bom pode passar",
     "prepare": "husky intall"
   },
   "dependencies": {
