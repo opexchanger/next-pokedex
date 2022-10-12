@@ -2,6 +2,9 @@ import { Box, Link, Text, Heading, HStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useOnePokemon } from '@/services/pokemons';
+import { formatPokemonName } from '@/utils/index';
+import TypeBadge from './TypeBadge';
+import { formatPokemonNumber } from '../../utils';
 
 type CardProps = {
   pokemonName: string;
@@ -74,11 +77,18 @@ const Card = ({ pokemonName }: CardProps) => {
                 fontWeight='bold'
                 mb={{ base: 2, md: 3 }}
               >
-                {pokemon.name}
+                {formatPokemonName(pokemon.name)}
               </Heading>
               <Text color='gray.500' fontWeight='500'>
-                Nº {pokemon.id}
+                Nº {formatPokemonNumber(pokemon.id)}
               </Text>
+            </HStack>
+
+            <HStack spacing={2}>
+              {pokemon.types &&
+                pokemon.types.map(({ type }) => {
+                  return <TypeBadge key={type.name} type={type.name} />;
+                })}
             </HStack>
           </Box>
         </Box>
