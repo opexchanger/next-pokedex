@@ -4,16 +4,27 @@ import type { NextPage } from 'next';
 import Header from '@/components/Header/Header';
 import { useAllPokemon } from '@/services/pokemons';
 import { Grid, Card, GridLoader } from '@/features/PokemonList';
-import { Container, Heading, Text } from '@chakra-ui/react';
+import { Container, Flex, Heading, Text } from '@chakra-ui/react';
+import { Pagination } from '@/features/Pagination';
+import { useState } from 'react';
+import { resultsPerPage } from 'src/config';
+
+function getTotalPages(totalResults: number, resultsPerPage: number) {
+  return Math.ceil(totalResults / resultsPerPage);
+}
 
 const Home: NextPage = () => {
+  const [activePage, setActivePage] = useState(1);
+
   const {
     data: pokemons,
     isLoading,
     isError,
-  } = useAllPokemon(1, {
+  } = useAllPokemon(activePage, {
     staleTime: Infinity,
   });
+
+  const totalResults = pokemons?.count || 15;
 
   return (
     <>
@@ -45,6 +56,14 @@ const Home: NextPage = () => {
           </Grid>
         )}
       </Container>
+      <Flex>
+        <Pagination
+          activePage={activePage}
+          setActivePage={setActivePage}
+          pageNumbersToShow={5}
+          totalPages={getTotalPages(totalResults, resultsPerPage)}
+        />
+      </Flex>
     </>
   );
 };
