@@ -44,7 +44,7 @@ const PageButton = ({
         !arrow && !active
           ? {
               base: 'none',
-              sm: 'block',
+              md: 'block',
             }
           : {
               base: 'block',

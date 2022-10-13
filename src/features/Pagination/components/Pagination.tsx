@@ -1,26 +1,22 @@
+import { usePagination } from '@/contexts/pagination';
 import { Flex, Icon } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { useMemo } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { calculatePaginationRange } from '../utils';
 
 import PageButton from './PageButton';
 
 type PaginationProps = {
-  activePage: number;
-  setActivePage: Dispatch<SetStateAction<number>>;
   pageNumbersToShow: number;
   totalPages: number;
 };
 
-const Pagination = ({
-  activePage,
-  setActivePage,
-  pageNumbersToShow,
-  totalPages,
-}: PaginationProps) => {
+const Pagination = ({ pageNumbersToShow, totalPages }: PaginationProps) => {
+  const { currentPage, setCurrentPage } = usePagination();
+
   const paginationRange = useMemo(
-    () => calculatePaginationRange(activePage, pageNumbersToShow, totalPages),
-    [activePage, pageNumbersToShow, totalPages]
+    () => calculatePaginationRange(currentPage, pageNumbersToShow, totalPages),
+    [currentPage, pageNumbersToShow, totalPages]
   );
 
   function getButtonClickHandler(action: () => void) {
@@ -49,9 +45,9 @@ const Pagination = ({
           <PageButton
             arrow
             handleClick={getButtonClickHandler(() =>
-              setActivePage((curValue) => curValue - 1)
+              setCurrentPage((curValue) => curValue - 1)
             )}
-            disabled={activePage === 1}
+            disabled={currentPage === 1}
           >
             <Icon
               as={IoIosArrowBack}
@@ -65,7 +61,7 @@ const Pagination = ({
           {!paginationRange.includes(1) && (
             <>
               <PageButton
-                handleClick={getButtonClickHandler(() => setActivePage(1))}
+                handleClick={getButtonClickHandler(() => setCurrentPage(1))}
               >
                 1
               </PageButton>
@@ -75,9 +71,9 @@ const Pagination = ({
           {paginationRange.map((pageNumber) => (
             <PageButton
               key={pageNumber}
-              active={pageNumber === activePage}
+              active={pageNumber === currentPage}
               handleClick={getButtonClickHandler(() =>
-                setActivePage(pageNumber)
+                setCurrentPage(pageNumber)
               )}
             >
               {pageNumber}
@@ -88,7 +84,7 @@ const Pagination = ({
               <PageButton spacer>...</PageButton>
               <PageButton
                 handleClick={getButtonClickHandler(() =>
-                  setActivePage(totalPages)
+                  setCurrentPage(totalPages)
                 )}
               >
                 {totalPages}
@@ -98,9 +94,9 @@ const Pagination = ({
           <PageButton
             arrow
             handleClick={getButtonClickHandler(() =>
-              setActivePage((curValue) => curValue + 1)
+              setCurrentPage((curValue) => curValue + 1)
             )}
-            disabled={activePage === totalPages}
+            disabled={currentPage === totalPages}
           >
             <Icon
               as={IoIosArrowForward}
