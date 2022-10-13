@@ -1,29 +1,28 @@
-import { chakra } from '@chakra-ui/react';
+import { chakra, ButtonProps } from '@chakra-ui/react';
 
-type PageButtonProps = {
+interface PageButtonProps extends ButtonProps {
   disabled?: boolean;
   active?: boolean;
-  arrow?: boolean;
-  spacer?: boolean;
-  children: React.ReactNode;
+  buttonType: 'arrow' | 'number' | 'spacer';
   handleClick?: () => void;
+}
+
+const activeStyle = {
+  bg: 'orange.600',
+  _dark: {
+    bg: 'orange.500',
+  },
+  color: 'white',
 };
 
 const PageButton = ({
   disabled,
   active,
-  arrow,
-  spacer,
+  buttonType,
   handleClick,
   children,
+  ...restProps
 }: PageButtonProps) => {
-  const activeStyle = {
-    bg: 'orange.600',
-    _dark: {
-      bg: 'orange.500',
-    },
-    color: 'white',
-  };
   return (
     <chakra.button
       mx={1}
@@ -31,17 +30,19 @@ const PageButton = ({
       py={2}
       rounded='md'
       bg='white'
-      _dark={{
-        bg: 'gray.800',
-      }}
       color='gray.700'
       disabled={disabled}
-      opacity={disabled || spacer ? 0.6 : undefined}
-      _hover={disabled || spacer ? undefined : activeStyle}
-      cursor={disabled ? 'not-allowed' : spacer ? 'initial' : 'pointer'}
-      {...(active && activeStyle)}
+      opacity={disabled || buttonType === 'spacer' ? 0.6 : undefined}
+      _hover={disabled || buttonType === 'spacer' ? undefined : activeStyle}
+      cursor={
+        disabled
+          ? 'not-allowed'
+          : buttonType === 'spacer'
+          ? 'initial'
+          : 'pointer'
+      }
       display={
-        !arrow && !active
+        buttonType !== 'arrow' && !active
           ? {
               base: 'none',
               md: 'block',
@@ -50,7 +51,10 @@ const PageButton = ({
               base: 'block',
             }
       }
+      {...(active && activeStyle)}
       onClick={active ? undefined : handleClick}
+      aria-current={active || undefined}
+      {...restProps}
     >
       {children}
     </chakra.button>

@@ -40,14 +40,15 @@ const Pagination = ({ pageNumbersToShow, totalPages }: PaginationProps) => {
       alignItems='center'
       justifyContent='center'
     >
-      <Flex>
+      <Flex as='nav' aria-label='pagination navigation'>
         <>
           <PageButton
-            arrow
+            buttonType='arrow'
+            disabled={currentPage === 1}
+            aria-label='Go back one page'
             handleClick={getButtonClickHandler(() =>
               setCurrentPage((curValue) => curValue - 1)
             )}
-            disabled={currentPage === 1}
           >
             <Icon
               as={IoIosArrowBack}
@@ -61,17 +62,21 @@ const Pagination = ({ pageNumbersToShow, totalPages }: PaginationProps) => {
           {!paginationRange.includes(1) && (
             <>
               <PageButton
+                buttonType='number'
+                aria-label='Go to first page'
                 handleClick={getButtonClickHandler(() => setCurrentPage(1))}
               >
                 1
               </PageButton>
-              <PageButton spacer>...</PageButton>
+              <PageButton buttonType='spacer'>...</PageButton>
             </>
           )}
           {paginationRange.map((pageNumber) => (
             <PageButton
               key={pageNumber}
+              buttonType='number'
               active={pageNumber === currentPage}
+              aria-label='Go to page number'
               handleClick={getButtonClickHandler(() =>
                 setCurrentPage(pageNumber)
               )}
@@ -81,8 +86,9 @@ const Pagination = ({ pageNumbersToShow, totalPages }: PaginationProps) => {
           ))}
           {!paginationRange.includes(totalPages) && (
             <>
-              <PageButton spacer>...</PageButton>
+              <PageButton buttonType='spacer'>...</PageButton>
               <PageButton
+                buttonType='number'
                 handleClick={getButtonClickHandler(() =>
                   setCurrentPage(totalPages)
                 )}
@@ -92,11 +98,12 @@ const Pagination = ({ pageNumbersToShow, totalPages }: PaginationProps) => {
             </>
           )}
           <PageButton
-            arrow
+            buttonType='arrow'
+            disabled={currentPage === totalPages}
+            aria-label='Go to last page'
             handleClick={getButtonClickHandler(() =>
               setCurrentPage((curValue) => curValue + 1)
             )}
-            disabled={currentPage === totalPages}
           >
             <Icon
               as={IoIosArrowForward}
