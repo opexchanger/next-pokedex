@@ -5,11 +5,15 @@ import { Grid, Card, GridLoader } from '@/features/PokemonList';
 import { usePagination } from '@/contexts/pagination';
 import { Pagination } from '@/features/Pagination';
 import { resultsPerPage } from 'src/config';
-// import { useEffect } from 'react';
 
 function getTotalPages(totalResults: number, resultsPerPage: number) {
   return Math.ceil(totalResults / resultsPerPage);
 }
+
+const totalResults = {
+  isDefault: true,
+  count: 15,
+};
 
 const PokemonList = () => {
   const { currentPage } = usePagination();
@@ -22,16 +26,10 @@ const PokemonList = () => {
     staleTime: Infinity,
   });
 
-  const totalResults = pokemons?.count || 15;
-
-  // useEffect(
-  //   () => {
-  //     if (!totalResults.isDefault && pokemons?.count) {
-  //       totalResults.count = pokemons.count
-  //     }
-  //   },
-  //   [pokemons?.count]
-  // );
+  if (pokemons?.count && totalResults.isDefault) {
+    totalResults.count = pokemons.count;
+    totalResults.isDefault = false;
+  }
 
   return (
     <Box>
@@ -55,7 +53,7 @@ const PokemonList = () => {
       <Flex>
         <Pagination
           pageNumbersToShow={5}
-          totalPages={getTotalPages(totalResults, resultsPerPage)}
+          totalPages={getTotalPages(totalResults.count, resultsPerPage)}
         />
       </Flex>
     </Box>
