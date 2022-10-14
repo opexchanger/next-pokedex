@@ -12,8 +12,9 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
     "pre-commit": "npm run format && npm run lint:fix && npm run test",
-    "pre-commit-dev": "echo ta bom pode passar",
-    "prepare": "husky intall"
+    "prepare": "husky intall",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.3.5",
