@@ -11,14 +11,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { method, query } = req;
   const pokemonName = query.name as string;
 
-  console.log('pokemonName :>> ', pokemonName);
-
   switch (method) {
     case 'GET':
       try {
         const likes = await findLikesByPokemonName(pokemonName);
-
-        console.log('likes :>> ', likes);
 
         if (!likes) {
           return res.status(200).json({

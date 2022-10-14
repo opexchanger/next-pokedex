@@ -28,7 +28,6 @@ export async function post<T>(url: string, data: any) {
   return axios
     .post<T>(url, data)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => {
