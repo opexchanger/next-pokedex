@@ -89,7 +89,7 @@ const Card = ({ pokemonName }: CardProps) => {
             <HStack spacing={2}>
               {pokemon.types &&
                 pokemon.types.map(({ type }) => {
-                  return <TypeBadge key={type.name} type={type.name} />;
+                  return <TypeBadge key={type.name} typeName={type.name} />;
                 })}
             </HStack>
           </Box>
