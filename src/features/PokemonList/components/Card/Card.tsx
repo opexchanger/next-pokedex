@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import { useOnePokemon } from '@/services/pokemons';
 import { formatPokemonName } from '@/utils/index';
 import { formatPokemonNumber } from '../../utils';
-import TypeBadge from './TypeBadge';
+import TypeBadge from '@/components/TypeBadge/TypeBadge';
 import CardLoader from './CardLoader';
 
 type CardProps = {
@@ -20,7 +20,7 @@ const Card = ({ pokemonName }: CardProps) => {
   if (isError) return <Box>Erro carregando o Pokemon</Box>;
 
   return (
-    <NextLink href={`/pokemons/${pokemon.name}`}>
+    <NextLink href={`/pokemon/${pokemon.name}`}>
       <Link _hover={{ textDecoration: 'none' }}>
         <Box
           maxW='20rem'

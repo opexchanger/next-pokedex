@@ -23,7 +23,7 @@ export type PokemonDTO = {
   height: number;
   weight: number;
   stats: Stat[];
-  abilities: Ability[];
+  abilities: string;
 };
 
 export type TypeName =

@@ -1,7 +1,7 @@
 import { Badge, BadgeProps } from '@chakra-ui/react';
 import { TypeName } from 'src/services/pokemons/types';
 import { capitalizeWord } from '@/utils/index';
-import { getTypeColorScheme } from '../../utils';
+import { getTypeColorScheme } from '@/features/PokemonList/utils';
 
 type TypeBadgeProps = BadgeProps & {
   typeName: TypeName;

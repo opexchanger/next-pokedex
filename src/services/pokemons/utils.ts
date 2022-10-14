@@ -3,6 +3,7 @@ import { QueryKey } from '@tanstack/react-query';
 import api from '../../lib/fetch';
 import { PokemonDTO, Pokemons } from './types';
 import { resultsPerPage, baseApiUrl } from '../../config';
+import { capitalizeWord } from '@/utils/index';
 
 export const createSinglePokemonKey = (pokemonName: string): QueryKey => {
   return ['Pokemon', pokemonName];
@@ -52,10 +53,14 @@ export const mapAPIResponseToDTO = (rawPokemon: any): PokemonDTO => {
     },
     types: rawPokemon.types.map((obj: any) => obj.type.name),
     stats: rawPokemon.stats,
-    abilities: rawPokemon.abilities.map((obj: any) => ({
-      name: obj.ability.name,
-      url: obj.ability.url,
-      isHidden: obj.is_hidden,
-    })),
+    // abilities: rawPokemon.abilities.map((obj: any) => ({
+    //   name: obj.ability.name,
+    //   url: obj.ability.url,
+    //   isHidden: obj.is_hidden,
+    // })),
+    abilities: rawPokemon.abilities
+      .filter((obj: any) => !obj.is_hidden)
+      .map((obj: any) => capitalizeWord(obj.ability.name))
+      .join(', '),
   };
 };
