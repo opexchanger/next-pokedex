@@ -3,7 +3,6 @@ export const calculatePaginationRange = (
   pageNumbersToShow: number,
   totalPages: number
 ) => {
-  console.log('calculating pagination range');
   let start = 1;
   let stop = pageNumbersToShow;
   const step = 1;
