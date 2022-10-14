@@ -23,6 +23,7 @@ import { PokemonDTO } from '@/services/pokemons/types';
 import { createSinglePokemonQueryFunction } from '@/services/pokemons/utils';
 import { Fragment } from 'react';
 import { formatPokemonName } from '@/utils/index';
+import ClapButton from '@/features/PokeClap/ClapButton';
 
 type Props = {
   pokemon: PokemonDTO;
@@ -123,6 +124,17 @@ const Home: NextPage<Props> = ({ pokemon }) => {
                 ))}
               </UnorderedList>
             </Flex>
+          </Flex>
+
+          <Flex mb={{ base: 8, md: 12 }} flexDir='column'>
+            <Heading
+              as='h4'
+              fontSize={{ base: 'xl', md: '2xl' }}
+              mb={{ base: 4 }}
+            >
+              Curta este Pokémon
+            </Heading>
+            <ClapButton />
           </Flex>
 
           <Flex mb={{ base: 8, md: 12 }} flexDir='column'>
