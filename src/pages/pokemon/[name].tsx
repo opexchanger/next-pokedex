@@ -15,9 +15,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
 } from '@chakra-ui/react';
-import { PrismaClient, Likes } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Likes } from '@prisma/client';
 
 import Header from '@/components/Header/Header';
 import Image from 'next/image';
@@ -26,7 +24,8 @@ import { PokemonDTO } from '@/services/pokemons/types';
 import { createSinglePokemonQueryFunction } from '@/services/pokemons/utils';
 import { Fragment } from 'react';
 import { formatPokemonName } from '@/utils/index';
-import ClapButton from '@/features/PokeClap/ClapButton';
+import LikeButton from '@/features/PokeLike/LikeButton';
+import { findLikesByPokemonName } from '@/services/likes';
 
 type Props = {
   pokemon: PokemonDTO;
@@ -138,7 +137,7 @@ const Home: NextPage<Props> = ({ pokemon, likes }) => {
             >
               Curta este Pokémon
             </Heading>
-            <ClapButton
+            <LikeButton
               pokemonName={pokemon.name}
               initialCount={likes?.amount || 0}
             />
@@ -213,11 +212,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const pokemonName = context.params?.name as string;
 
   const pokemon = await createSinglePokemonQueryFunction(pokemonName)();
-  const likes: Likes | null = await prisma.likes.findUnique({
-    where: {
-      pokemonName: pokemonName,
-    },
-  });
+  const likes = await findLikesByPokemonName(pokemonName);
 
   return {
     props: {
