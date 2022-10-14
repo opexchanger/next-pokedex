@@ -23,21 +23,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     case 'POST':
       const { pokemonName, amount }: ParsedBody = JSON.parse(body);
 
-      const savedLike = await prisma.likes.upsert({
-        where: {
-          pokemonName: pokemonName.toLowerCase(),
-        },
-        update: {
-          amount: {
-            increment: amount,
+      try {
+        const savedLike = await prisma.likes.upsert({
+          where: {
+            pokemonName: pokemonName.toLowerCase(),
           },
-        },
-        create: {
-          pokemonName: pokemonName.toLowerCase(),
-          amount: amount,
-        },
-      });
-      res.status(200).json(savedLike);
+          update: {
+            amount: {
+              increment: amount,
+            },
+          },
+          create: {
+            pokemonName: pokemonName.toLowerCase(),
+            amount: amount,
+          },
+        });
+        console.log('savedLike :>> ', savedLike);
+        res.status(200).json(savedLike);
+      } catch (error) {
+        console.log('error :>> ', error);
+        res.status(500).end('erro');
+      }
       break;
     default:
       res.setHeader('Allow', ['POST']);

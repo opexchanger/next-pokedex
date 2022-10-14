@@ -8,6 +8,8 @@ type ClapButtonProps = {
   initialCount: number;
 };
 
+const DEBOUNCE_DELAY = 900;
+
 async function saveClaps(pokemonName: string, amount: number): Promise<Likes> {
   const response = await fetch('/api/likes', {
     method: 'POST',
@@ -33,7 +35,7 @@ const ClapButton = ({ pokemonName, initialCount }: ClapButtonProps) => {
       const timeout = setTimeout(() => {
         setClaps(queueClaps);
         setQueueClaps(0);
-      }, 700);
+      }, DEBOUNCE_DELAY);
       return () => clearTimeout(timeout);
     }
   }, [queueClaps]);
@@ -41,12 +43,15 @@ const ClapButton = ({ pokemonName, initialCount }: ClapButtonProps) => {
   useEffect(() => {
     if (queueClaps > 0) {
       const timeout = setTimeout(() => {
-        saveClaps(pokemonName, queueClaps).then((claps) => {
-          console.log('claps :>> ', claps);
-          setClaps(claps.amount);
-          setQueueClaps(0);
-        });
-      }, 900);
+        saveClaps(pokemonName, queueClaps)
+          .then((claps) => {
+            setClaps(claps.amount);
+            setQueueClaps(0);
+          })
+          .catch((error) => {
+            console.log('error :>> ', error);
+          });
+      }, DEBOUNCE_DELAY);
       return () => clearTimeout(timeout);
     }
   }, [queueClaps, pokemonName]);
@@ -67,7 +72,7 @@ const ClapButton = ({ pokemonName, initialCount }: ClapButtonProps) => {
       >
         <AiOutlineLike />
       </Button>{' '}
-      {queueClaps}/{claps}
+      {queueClaps}/{claps} likes
     </Flex>
   );
 };
