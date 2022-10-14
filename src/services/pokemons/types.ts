@@ -12,6 +12,20 @@ export type Pokemon = {
   abilities: Ability[];
 };
 
+export type PokemonDTO = {
+  id: number;
+  name: string;
+  sprites: {
+    front: string;
+    back: string;
+  };
+  types: TypeName[];
+  height: number;
+  weight: number;
+  stats: Stat[];
+  abilities: Ability[];
+};
+
 export type TypeName =
   | 'normal'
   | 'fighting'

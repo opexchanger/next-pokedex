@@ -19,8 +19,6 @@ const Card = ({ pokemonName }: CardProps) => {
 
   if (isError) return <Box>Erro carregando o Pokemon</Box>;
 
-  // console.log('pokemon :>> ', pokemon);
-
   return (
     <NextLink href={`/pokemons/${pokemon.name}`}>
       <Link _hover={{ textDecoration: 'none' }}>
@@ -59,9 +57,7 @@ const Card = ({ pokemonName }: CardProps) => {
               <Image
                 layout='fill'
                 objectFit='contain'
-                src={
-                  pokemon?.sprites?.front_default || '/img/pokemon_no_image.png'
-                }
+                src={pokemon?.sprites?.front}
                 alt={`Profile Pic do ${pokemon.name}`}
               />
             </Box>
@@ -88,9 +84,9 @@ const Card = ({ pokemonName }: CardProps) => {
 
             <HStack spacing={2}>
               {pokemon.types &&
-                pokemon.types.map(({ type }) => {
-                  return <TypeBadge key={type.name} typeName={type.name} />;
-                })}
+                pokemon.types.map((type) => (
+                  <TypeBadge key={type} typeName={type} />
+                ))}
             </HStack>
           </Box>
         </Box>

@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-import { Pokemon, Pokemons } from './types';
+import { PokemonDTO, Pokemons } from './types';
 import {
   createSinglePokemonQueryFunction,
   createManyPokemonsQueryFunction,
@@ -10,7 +10,7 @@ import {
 
 export const useOnePokemon = (
   pokemonName: string,
-  options?: UseQueryOptions<Pokemon>
+  options?: UseQueryOptions<PokemonDTO>
 ) => {
   return useQuery(
     createSinglePokemonKey(pokemonName),

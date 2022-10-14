@@ -1,7 +1,7 @@
 import { QueryKey } from '@tanstack/react-query';
 
-import { getFetch } from '../../lib/fetch';
-import { Pokemon, Pokemons } from './types';
+import api from '../../lib/fetch';
+import { PokemonDTO, Pokemons } from './types';
 import { resultsPerPage, baseApiUrl } from '../../config';
 
 export const createSinglePokemonKey = (pokemonName: string): QueryKey => {
@@ -14,13 +14,13 @@ export const createManyPokemonKey = (page: number): QueryKey => {
 
 export const createSinglePokemonQueryFunction = (pokemonName: string) => {
   const fetchUrl = baseApiUrl + pokemonName;
-  const queryFunction = getFetch<Pokemon>(fetchUrl);
+  const queryFunction = api.get<PokemonDTO>(fetchUrl, {}, mapAPIResponseToDTO);
   return () => queryFunction;
 };
 
 export const createManyPokemonsQueryFunction = (page: number) => {
-  const params = getParamsBasedOnPage(page);
-  const queryFunction = getFetch<Pokemons>(baseApiUrl, {
+  const params = getParamsBasedOnPageNumber(page);
+  const queryFunction = api.get<Pokemons>(baseApiUrl, {
     params,
   });
   return () => queryFunction;
@@ -31,7 +31,7 @@ type APIPaginationParams = {
   offset: number;
 };
 
-const getParamsBasedOnPage = (page: number): APIPaginationParams => {
+const getParamsBasedOnPageNumber = (page: number): APIPaginationParams => {
   const limit = resultsPerPage;
   const offset = page * 15 - 15;
   return {
@@ -40,22 +40,22 @@ const getParamsBasedOnPage = (page: number): APIPaginationParams => {
   };
 };
 
-// export const simplifyPokemonModel = (rawPokemon: any): Pokemon => {
-//   return {
-//     id: rawPokemon.id,
-//     name: rawPokemon.name,
-//     height: rawPokemon.height,
-//     weight: rawPokemon.weight,
-//     images: {
-//       front: rawPokemon.sprites.front_default,
-//       back: rawPokemon.sprites.back_default,
-//     },
-//     types: rawPokemon.types.map((obj: any) => obj.type.name).join(', '),
-//     stats: rawPokemon.stats,
-//     abilities: rawPokemon.abilities.map((obj: any) => ({
-//       name: obj.ability.name,
-//       url: obj.ability.url,
-//       isHidden: obj.is_hidden,
-//     })),
-//   };
-// };
+export const mapAPIResponseToDTO = (rawPokemon: any): PokemonDTO => {
+  return {
+    id: rawPokemon.id,
+    name: rawPokemon.name,
+    height: rawPokemon.height,
+    weight: rawPokemon.weight,
+    sprites: {
+      front: rawPokemon.sprites?.front_default || '/img/pokemon_no_image.png',
+      back: rawPokemon.sprites?.back_default || '/img/pokemon_no_image.png',
+    },
+    types: rawPokemon.types.map((obj: any) => obj.type.name),
+    stats: rawPokemon.stats,
+    abilities: rawPokemon.abilities.map((obj: any) => ({
+      name: obj.ability.name,
+      url: obj.ability.url,
+      isHidden: obj.is_hidden,
+    })),
+  };
+};
