@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { AiOutlineLike } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { getLikes, saveLikes } from '@/services/likes';
@@ -8,7 +8,7 @@ type LikeButtonProps = {
   initialCount: number;
 };
 
-const DEBOUNCE_DELAY = 700;
+const DEBOUNCE_DELAY = 900;
 
 const LikeButton = ({ pokemonName, initialCount }: LikeButtonProps) => {
   const [likes, setLikes] = useState(initialCount);
@@ -26,10 +26,12 @@ const LikeButton = ({ pokemonName, initialCount }: LikeButtonProps) => {
   useEffect(() => {
     if (queueLikes > 0) {
       const timeout = setTimeout(() => {
+        setLoading(true);
         saveLikes(pokemonName, queueLikes)
           .then((likes) => {
             setLikes(likes.amount);
             setQueueLikes(0);
+            setLoading(false);
           })
           .catch((error) => {
             console.log('error :>> ', error);
@@ -50,16 +52,13 @@ const LikeButton = ({ pokemonName, initialCount }: LikeButtonProps) => {
         colorScheme='teal'
         variant='outline'
         onClick={clap}
-        mr='4'
+        mr='3'
         borderRadius='full'
       >
         <AiOutlineLike />
+        {queueLikes > 0 && <Box ml={2}>{queueLikes}</Box>}
       </Button>{' '}
-      {!isLoading && (
-        <Text as='span'>
-          {queueLikes}/{likes} likes
-        </Text>
-      )}
+      <Text as='span'>{likes} likes</Text>
     </Flex>
   );
 };
