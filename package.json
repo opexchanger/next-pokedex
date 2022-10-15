@@ -14,6 +14,7 @@
     "pre-commit": "npm run format && npm run lint:fix && npm run test",
     "prepare": "husky intall",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "pre-build": "prisma generate && prisma migrate deploy && next build",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {

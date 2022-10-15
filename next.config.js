@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: ['pokeapi.co', 'raw.githubusercontent.com'],
   },
+  output: 'standalone',
 }
 
 module.exports = nextConfig

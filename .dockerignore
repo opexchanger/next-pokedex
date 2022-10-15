@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.local
+issues.txt
+.next
+.swx
+next-env.d.ts
+Dockerfile
+.dockerignore
+npm-debug.log
+README.md
+.git
