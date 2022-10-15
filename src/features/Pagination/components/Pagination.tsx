@@ -100,7 +100,7 @@ const Pagination = ({ pageNumbersToShow, totalPages }: PaginationProps) => {
           <PageButton
             buttonType='arrow'
             disabled={currentPage === totalPages}
-            aria-label='Go to last page'
+            aria-label='Go to next page'
             handleClick={getButtonClickHandler(() =>
               setCurrentPage((curValue) => curValue + 1)
             )}

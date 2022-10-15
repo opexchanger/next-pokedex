@@ -25,6 +25,20 @@ type PaginationContext = {
 export default function PaginationProvider(props: PaginationProviderProps) {
   const [currentPage, setCurrentPage] = useState(PAGINATION_STARTS_AT);
 
+  // useEffect(() => {
+  //   let initialSetDone = false;
+  //   const localStorageCurrentPage = localStorage.getItem('currentPage');
+  //   if (localStorageCurrentPage) {
+  //     if (initialSetDone) {
+  //       window.localStorage.setItem('currentPage', JSON.stringify(currentPage));
+  //     } else {
+  //       setCurrentPage(JSON.parse(localStorageCurrentPage));
+  //       initialSetDone = true;
+  //     }
+  //   }
+
+  // }, [currentPage]);
+
   return (
     <PaginationContext.Provider
       value={{
