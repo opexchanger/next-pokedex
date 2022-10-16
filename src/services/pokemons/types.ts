@@ -24,6 +24,7 @@ export type PokemonDTO = {
   weight: number;
   stats: Stat[];
   abilities: string;
+  mainInfo?: { title: string; value: string }[];
 };
 
 export type TypeName =

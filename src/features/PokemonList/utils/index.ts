@@ -7,6 +7,9 @@ export const getTypeColorScheme = (type: TypeName) => {
 export const formatPokemonNumber = (id: number) =>
   id.toString().padStart(3, '0');
 
+export const formatPokemonMeasures = (value: number, measure: string) =>
+  `${value / 10} ${measure}`;
+
 const typeColorsReference = {
   normal: { color: 'orange.100', text: 'black' },
   fighting: { color: 'teal.600', text: 'white' },

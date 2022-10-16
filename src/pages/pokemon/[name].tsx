@@ -26,6 +26,7 @@ import { formatPokemonName } from '@/utils/index';
 import LikeButton from '@/features/PokeLike/LikeButton';
 import { serverMethods } from '@/services/likes';
 import Link from 'next/link';
+import { formatPokemonMeasures } from '@/features/PokemonList/utils';
 
 type Props = {
   pokemon: PokemonDTO;
@@ -33,22 +34,7 @@ type Props = {
 };
 
 const PokemonView: NextPage<Props> = ({ pokemon, likes }) => {
-  const pokemonMainInfo = (({ height, weight, abilities }) => [
-    {
-      title: 'Altura',
-      value: height,
-    },
-    {
-      title: 'Peso',
-      value: weight,
-    },
-    {
-      title: 'Habilidades',
-      value: abilities,
-    },
-  ])(pokemon);
-
-  pokemon.name = formatPokemonName(pokemon.name);
+  const { mainInfo } = pokemon;
 
   return (
     <>
@@ -114,17 +100,18 @@ const PokemonView: NextPage<Props> = ({ pokemon, likes }) => {
               >
                 {pokemon.name}
               </Heading>
-              {pokemonMainInfo.map(({ title, value }) => (
-                <ListItem
-                  key={title}
-                  display='flex'
-                  justifyContent='space-between'
-                  fontSize={{ md: 'lg' }}
-                >
-                  <Text fontWeight='bold'>{title}:</Text>
-                  <Text ml='20px'>{value}</Text>
-                </ListItem>
-              ))}
+              {mainInfo &&
+                mainInfo.map(({ title, value }) => (
+                  <ListItem
+                    key={title}
+                    display='flex'
+                    justifyContent='space-between'
+                    fontSize={{ md: 'lg' }}
+                  >
+                    <Text fontWeight='bold'>{title}:</Text>
+                    <Text ml='20px'>{value}</Text>
+                  </ListItem>
+                ))}
             </UnorderedList>
           </Flex>
         </Flex>
@@ -212,6 +199,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const pokemon = await createSinglePokemonQueryFunction(pokemonName)();
   const likes = await serverMethods.findLikesByPokemonName(pokemonName);
+
+  const pokemonMainInfo = (({ height, weight, abilities }) => [
+    {
+      title: 'Altura',
+      value: formatPokemonMeasures(height, 'm'),
+    },
+    {
+      title: 'Peso',
+      value: formatPokemonMeasures(weight, 'kg'),
+    },
+    {
+      title: 'Habilidades',
+      value: abilities,
+    },
+  ])(pokemon);
+
+  pokemon.mainInfo = pokemonMainInfo;
+  pokemon.name = formatPokemonName(pokemon.name);
 
   return {
     props: {
