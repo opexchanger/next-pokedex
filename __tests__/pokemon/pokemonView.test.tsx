@@ -1,6 +1,9 @@
 import PokemonView from '../../src/pages/pokemon/[name]';
 import { render, screen } from '@testing-library/react';
-import { fakePokemon, fakeLikes } from '../__mocks__/fakeData/pokemon';
+import {
+  fakePokemon,
+  fakeLikesGet as fakeLikes,
+} from '../__mocks__/fakeData/pokemon';
 
 // para poder pegar o src sem o transform do next
 jest.mock('next/image', () => ({

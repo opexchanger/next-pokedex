@@ -18,7 +18,7 @@ describe('Pagination Component', () => {
   afterAll(() => {
     jest.clearAllMocks();
   });
-  test('pagination displays correct number of buttons', () => {
+  test('Pagination displays correct number of buttons', () => {
     const pageNumbersToShow = 5;
     renderSUT({ pageNumbersToShow, totalPages: 10 });
 
@@ -40,12 +40,13 @@ describe('Pagination Component', () => {
   });
 
   test('Next button should be disabled on last page', () => {
-    renderSUT({ pageNumbersToShow: 6, totalPages: 6 });
+    const lastPage = 6;
+    renderSUT({ pageNumbersToShow: 6, totalPages: lastPage });
 
     const nextPageButton = screen.getByLabelText('Go to next page');
-    const buttonWithNumber6 = screen.getByText(6);
+    const buttonForLastPage = screen.getByText(lastPage);
 
-    fireEvent.click(buttonWithNumber6);
+    fireEvent.click(buttonForLastPage);
 
     expect(nextPageButton).toBeDisabled();
   });
