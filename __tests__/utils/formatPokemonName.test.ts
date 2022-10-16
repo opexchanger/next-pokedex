@@ -8,8 +8,4 @@ describe('Format Pokemon Name', () => {
   test('should work with a hifen', () => {
     expect(formatPokemonName('nome-separado')).toBe('Nome Separado');
   });
-
-  test('should work with a hifen', () => {
-    expect(formatPokemonName('nome-separado')).toBe('Nome Separado');
-  });
 });

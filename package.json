@@ -12,6 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
     "pre-commit": "npm run format && npm run lint:fix && npm run test",
+    "pre-commit-dev": "echo pode passar",
     "prepare": "husky intall",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "pre-build": "prisma generate && prisma migrate deploy && next build",
@@ -23,17 +24,17 @@
     "@emotion/styled": "^11.10.4",
     "@prisma/client": "^4.4.0",
     "@tanstack/react-query": "^4.10.3",
-    "axios": "^1.1.2",
+    "axios": "^1.1.3",
     "framer-motion": "^6.5.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.4.0",
-    "ts-jest": "^29.0.3"
+    "react-icons": "^4.4.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.1.2",
     "@types/node": "18.8.4",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
@@ -51,6 +52,7 @@
     "msw": "^0.47.4",
     "prettier": "^2.7.1",
     "prisma": "^4.4.0",
+    "ts-jest": "^29.0.3",
     "typescript": "4.8.4"
   }
 }
