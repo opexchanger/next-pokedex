@@ -55,6 +55,7 @@ const LikeButton = ({ pokemonName, initialCount }: LikeButtonProps) => {
         onClick={clap}
         mr='3'
         borderRadius='full'
+        aria-label='Curtir o Pokémon'
       >
         <AiOutlineLike />
         {queueLikes > 0 && <Box ml={2}>{queueLikes}</Box>}
