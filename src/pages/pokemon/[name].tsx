@@ -11,9 +11,6 @@ import {
   Text,
   UnorderedList,
   VStack,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
 } from '@chakra-ui/react';
 import { Likes } from '@prisma/client';
 
@@ -25,8 +22,8 @@ import { Fragment } from 'react';
 import { formatPokemonName } from '@/utils/index';
 import LikeButton from '@/features/PokeLike/LikeButton';
 import { serverMethods } from '@/services/likes';
-import Link from 'next/link';
 import { formatPokemonMeasures } from '@/features/PokemonList/utils';
+import Breadcrumbs from '@/components/Breadcrumb/Breadcrumb';
 
 type Props = {
   pokemon: PokemonDTO;
@@ -44,22 +41,12 @@ const PokemonView: NextPage<Props> = ({ pokemon, likes }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Container w='container.lg' maxW='85%'>
-        <Breadcrumb
-          boxShadow='sm'
-          mt={{ base: 4, md: 8 }}
-          py={{ base: 2 }}
-          pl={{ md: 4 }}
-        >
-          <BreadcrumbItem>
-            <Link href='/'>
-              <BreadcrumbLink>Pokémons</BreadcrumbLink>
-            </Link>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink>{pokemon.name}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <Breadcrumbs
+          path={[
+            { name: 'Pokémons', link: '/' },
+            { name: pokemon.name, link: '', current: true },
+          ]}
+        />
 
         <Flex
           boxShadow='md'
