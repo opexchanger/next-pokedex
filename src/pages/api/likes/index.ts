@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { updateOrCreateLikes } from '@/services/likes';
+import { serverMethods } from '@/services/likes';
 
 type Data = {
   id: number;
@@ -20,7 +20,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const { pokemonName, amount }: ParsedBody = JSON.parse(body);
 
       try {
-        const savedLikes = await updateOrCreateLikes(pokemonName, amount);
+        const savedLikes = await serverMethods.updateOrCreateLikes(
+          pokemonName,
+          amount
+        );
         res.status(200).json(savedLikes);
       } catch (error) {
         console.log('error :>> ', error);

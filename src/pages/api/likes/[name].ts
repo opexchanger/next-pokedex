@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { findLikesByPokemonName } from '@/services/likes';
+import { serverMethods } from '@/services/likes';
 
 type Data = {
   id?: number;
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   switch (method) {
     case 'GET':
       try {
-        const likes = await findLikesByPokemonName(pokemonName);
+        const likes = await serverMethods.findLikesByPokemonName(pokemonName);
 
         if (!likes) {
           return res.status(200).json({

@@ -2,7 +2,7 @@ import api from '@/lib/fetch';
 import { prisma } from '@/lib/prisma';
 import { Likes } from './types';
 
-export const findLikesByPokemonName = async (pokemonName: string) => {
+const findLikesByPokemonName = async (pokemonName: string) => {
   const likes = await prisma.likes.findUnique({
     where: {
       pokemonName: pokemonName.toLowerCase(),
@@ -12,10 +12,7 @@ export const findLikesByPokemonName = async (pokemonName: string) => {
   return likes;
 };
 
-export const updateOrCreateLikes = async (
-  pokemonName: string,
-  amount: number
-) => {
+const updateOrCreateLikes = async (pokemonName: string, amount: number) => {
   const savedLikes = prisma.likes.upsert({
     where: {
       pokemonName: pokemonName.toLowerCase(),
@@ -34,7 +31,7 @@ export const updateOrCreateLikes = async (
   return savedLikes;
 };
 
-export const saveLikes = async (
+const saveLikesToApi = async (
   pokemonName: string,
   amount: number
 ): Promise<Likes> => {
@@ -53,7 +50,17 @@ export const saveLikes = async (
   return await response.json();
 };
 
-export const getLikes = async (pokemonName: string) => {
+const getLikesFromApi = async (pokemonName: string) => {
   const likes = await api.get<Likes>(`/api/likes/${pokemonName.toLowerCase()}`);
   return likes;
+};
+
+export const serverMethods = {
+  findLikesByPokemonName,
+  updateOrCreateLikes,
+};
+
+export const clientMethods = {
+  getLikesFromApi,
+  saveLikesToApi,
 };

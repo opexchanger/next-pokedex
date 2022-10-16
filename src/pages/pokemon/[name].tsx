@@ -25,14 +25,14 @@ import { createSinglePokemonQueryFunction } from '@/services/pokemons/utils';
 import { Fragment } from 'react';
 import { formatPokemonName } from '@/utils/index';
 import LikeButton from '@/features/PokeLike/LikeButton';
-import { findLikesByPokemonName } from '@/services/likes';
+import { serverMethods } from '@/services/likes';
 
 type Props = {
   pokemon: PokemonDTO;
   likes: Likes;
 };
 
-const Home: NextPage<Props> = ({ pokemon, likes }) => {
+const PokemonView: NextPage<Props> = ({ pokemon, likes }) => {
   const pokemonMainInfo = (({ height, weight, abilities }) => [
     {
       title: 'Altura',
@@ -107,13 +107,13 @@ const Home: NextPage<Props> = ({ pokemon, likes }) => {
                 flexDir='column'
                 justifyContent='space-around'
               >
-                <Text
+                <Heading
                   fontSize={{ base: '3xl', md: '5xl' }}
                   fontWeight='bold'
                   whiteSpace='nowrap'
                 >
                   {pokemon.name}
-                </Text>
+                </Heading>
                 {pokemonMainInfo.map(({ title, value }) => (
                   <ListItem
                     key={title}
@@ -206,13 +206,13 @@ const Home: NextPage<Props> = ({ pokemon, likes }) => {
   );
 };
 
-export default Home;
+export default PokemonView;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const pokemonName = context.params?.name as string;
 
   const pokemon = await createSinglePokemonQueryFunction(pokemonName)();
-  const likes = await findLikesByPokemonName(pokemonName);
+  const likes = await serverMethods.findLikesByPokemonName(pokemonName);
 
   return {
     props: {

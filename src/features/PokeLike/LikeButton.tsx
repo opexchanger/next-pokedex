@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { AiOutlineLike } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
-import { getLikes, saveLikes } from '@/services/likes';
+import { clientMethods } from '@/services/likes';
 
 type LikeButtonProps = {
   pokemonName: string;
@@ -16,7 +16,7 @@ const LikeButton = ({ pokemonName, initialCount }: LikeButtonProps) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    getLikes(pokemonName).then((likes) => {
+    clientMethods.getLikesFromApi(pokemonName).then((likes) => {
       setLoading(false);
       // Set the clap count
       setLikes(likes.amount);
@@ -27,7 +27,8 @@ const LikeButton = ({ pokemonName, initialCount }: LikeButtonProps) => {
     if (queueLikes > 0) {
       const timeout = setTimeout(() => {
         setLoading(true);
-        saveLikes(pokemonName, queueLikes)
+        clientMethods
+          .saveLikesToApi(pokemonName, queueLikes)
           .then((likes) => {
             setLikes(likes.amount);
             setQueueLikes(0);
