@@ -1,8 +1,18 @@
 {
   "extends": ["next/core-web-vitals", "prettier"],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "testing-library", "jest-dom"],
   "rules": {
     "prettier/prettier": "warn",
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
-  }
+  },
+  "overrides": [
+    // Only uses Testing Library lint rules in test files
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react", "plugin:jest-dom/recommended"]
+    }
+  ]
 }
