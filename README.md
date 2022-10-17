@@ -11,3 +11,9 @@ Embora com um ou dois pontos da stack tenha sido o meu primeiro contato, foi com
 Por isso asseguro que o código que apresentei nesse desafio, vai definitivamente melhorar. Em especial testes e arquitetura (clean architechture) é o que mais pretendo estar entrando a fundo no próximo momento.
 
 Espero desenvolver mais projetos como esse, e muito maiores e com mais qualidade.
+
+
+
+Projeto live na Vercel: https://next-pokedex-lovat.vercel.app/
+
+P.S.: Os likes podem ter alguma demora no primeiro load por conta de cold start, já que o banco ta hospedado em free tier hehe A hospedagem foi feita no render.com
