@@ -22,12 +22,12 @@ describe('Individual Pokemon Page', () => {
     render(<PokemonView pokemon={fakePokemon} likes={fakeLikes} />);
 
     const headingWithPokemonName = screen.getByRole('heading', {
-      name: 'Bulbasaur',
+      name: 'bulbasaur',
     });
 
     expect(headingWithPokemonName).toBeInTheDocument();
 
-    const pokemonImage = screen.getByRole('img', { name: 'Bulbasaur picture' });
+    const pokemonImage = screen.getByRole('img', { name: 'bulbasaur picture' });
 
     expect(pokemonImage).toHaveAttribute('src', fakePokemon.sprites.front);
   });
