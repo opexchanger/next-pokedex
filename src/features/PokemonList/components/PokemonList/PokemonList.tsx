@@ -1,6 +1,6 @@
 import { Box, Container, Flex } from '@chakra-ui/react';
 
-import { useAllPokemon } from '@/services/pokemons';
+import { useAllPokemonPaginated } from '@/services/pokemons';
 import { Grid, Card, GridLoader } from '@/features/PokemonList';
 import { usePagination } from '@/contexts/pagination';
 import { Pagination } from '@/features/Pagination';
@@ -11,7 +11,7 @@ function getTotalPages(totalResults: number, resultsPerPage: number) {
 }
 
 const totalResults = {
-  isDefault: true,
+  isPlaceholder: true,
   count: 15,
 };
 
@@ -22,13 +22,13 @@ const PokemonList = () => {
     data: pokemons,
     isLoading,
     isError,
-  } = useAllPokemon(currentPage, {
+  } = useAllPokemonPaginated(currentPage, {
     staleTime: Infinity,
   });
 
-  if (pokemons?.count && totalResults.isDefault) {
+  if (pokemons?.count && totalResults.isPlaceholder) {
     totalResults.count = pokemons.count;
-    totalResults.isDefault = false;
+    totalResults.isPlaceholder = false;
   }
 
   return (

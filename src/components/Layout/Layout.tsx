@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 
 import Header from '@/components/Header/Header';
+import PokeSearch from '@/features/PokeSearch/PokeSearch';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => (
   <>
-    <Header />
+    <Header>
+      <PokeSearch />
+    </Header>
     <Box as='main'>{children}</Box>
   </>
 );

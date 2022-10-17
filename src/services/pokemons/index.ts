@@ -19,13 +19,21 @@ export const useOnePokemon = (
   );
 };
 
-export const useAllPokemon = (
+export const useAllPokemonPaginated = (
   page: number,
   options?: UseQueryOptions<Pokemons>
 ) => {
   return useQuery(
     createManyPokemonKey(page),
     createManyPokemonsQueryFunction(page),
+    options
+  );
+};
+
+export const useAllPokemon = (options?: UseQueryOptions<Pokemons>) => {
+  return useQuery(
+    createManyPokemonKey(0),
+    createManyPokemonsQueryFunction(0),
     options
   );
 };

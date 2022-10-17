@@ -33,6 +33,12 @@ type APIPaginationParams = {
 };
 
 const getParamsBasedOnPageNumber = (page: number): APIPaginationParams => {
+  if (page === 0) {
+    return {
+      limit: 10000,
+      offset: 0,
+    };
+  }
   const limit = resultsPerPage;
   const offset = page * 15 - 15;
   return {
@@ -53,11 +59,6 @@ export const mapAPIResponseToDTO = (rawPokemon: any): PokemonDTO => {
     },
     types: rawPokemon.types.map((obj: any) => obj.type.name),
     stats: rawPokemon.stats,
-    // abilities: rawPokemon.abilities.map((obj: any) => ({
-    //   name: obj.ability.name,
-    //   url: obj.ability.url,
-    //   isHidden: obj.is_hidden,
-    // })),
     abilities: rawPokemon.abilities
       .filter((obj: any) => !obj.is_hidden)
       .map((obj: any) => formatPokemonName(obj.ability.name))
